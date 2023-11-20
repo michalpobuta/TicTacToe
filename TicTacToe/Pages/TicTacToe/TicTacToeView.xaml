@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TicTacToe.Pages.TicTacToe.TicTacToeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="TicTacToeView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.1*" />
+
+        </Grid.ColumnDefinitions>
+        <GraphicsView
+            x:Name="gameGrid"
+            Grid.Row="2"
+            Grid.Column="1"
+            HeightRequest="300"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="300">
+            <GraphicsView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Tapped" />
+            </GraphicsView.GestureRecognizers>
+        </GraphicsView>
+        <ListView
+            Grid.Row="4"
+            Grid.Column="1"
+            ItemsSource="{Binding Moves}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <HorizontalStackLayout>
+                            <VerticalStackLayout>
+                                <Label FontAttributes="Bold" Text="Move NO." />
+                                <Label Text="{Binding MoveNumber}" />
+                            </VerticalStackLayout>
+                            <BoxView Margin="10" />
+                            <VerticalStackLayout>
+                                <Label FontAttributes="Bold" Text="Player" />
+                                <Label Text="{Binding PlayerName}" />
+                            </VerticalStackLayout>
+                            <BoxView Margin="10" />
+                            <VerticalStackLayout>
+                                <Label FontAttributes="Bold" Text="X" />
+                                <Label Text="{Binding MoveX}" />
+                            </VerticalStackLayout>
+                            <BoxView Margin="10" />
+                            <VerticalStackLayout>
+                                <Label FontAttributes="Bold" Text="Y" />
+                                <Label Text="{Binding MoveY}" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button
+            Grid.Row="6"
+            Grid.Column="1"
+            Clicked="Button_Clicked"
+            Text="Reset" />
+    </Grid>
+</ContentPage>

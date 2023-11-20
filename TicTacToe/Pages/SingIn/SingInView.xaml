@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TicTacToe.Pages.SingIn.SingInView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="SingInView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="1">
+            <Entry Placeholder="Email" Text="{Binding User.Email, Mode=TwoWay}" />
+            <Entry
+                IsPassword="True"
+                Placeholder="Password"
+                Text="{Binding User.Password, Mode=TwoWay}" />
+
+        </VerticalStackLayout>
+        <Button
+            Grid.Row="2"
+            Clicked="LoginClicked"
+            Text="Login" />
+        <Button
+            Grid.Row="3"
+            Clicked="RegisterClicked"
+            Text="Register" />
+    </Grid>
+</ContentPage>
