@@ -40,7 +40,7 @@ namespace TicTacToe.Database.Repositories
 
         public Task<List<Game>> GetItems(Expression<Func<Game, bool>> predicate)
         {
-            return _dbContext.Games.Where(predicate).ToListAsync();
+            return _dbContext.Games.Include(x => x.User).Where(predicate).ToListAsync();
         }
 
         public async Task<Game> SaveItem(Game item)

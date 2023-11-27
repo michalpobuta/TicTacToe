@@ -21,7 +21,7 @@ namespace TicTacToe.Pages.LeaderBoard
         public LeaderBoardViewModel(IBaseRepository<Game> gameRepository) 
         {
             this.gameRepository = gameRepository;
-            Task.Run(() =>  SetData());
+            SetData();
         }
 
         private async Task SetData() 
