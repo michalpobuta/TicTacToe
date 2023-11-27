@@ -1,0 +1,109 @@
+<ContentPage
+    x:Class="TicTacToe.Pages.LeaderBoard.LeaderBoardView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:TicTacToe.Converters"
+    xmlns:cv="clr-namespace:TicTacToe.ContentViews"
+    Title="LeaderBoardView"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <conv:TopThreeConverter x:Key="TopThreeConverter" />
+        <conv:TopThreeColorConverter x:Key="TopThreeColorConverter" />
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <cv:MenuContentView Grid.Row="0" />
+
+        <ListView
+            Grid.Row="1"
+            Margin="10"
+            HasUnevenRows="True"
+            IsEnabled="False"
+            ItemsSource="{Binding LeaderBoardObjects}"
+            SeparatorVisibility="None"
+            VerticalOptions="FillAndExpand">
+
+            <ListView.Header>
+                <Grid Padding="10" BackgroundColor="#EEEEEE">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="Avatar" />
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="Name" />
+                    <Label
+                        Grid.Column="2"
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="Score" />
+                </Grid>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Frame
+                                Grid.ColumnSpan="3"
+                                Margin="-10"
+                                Padding="10"
+                                BackgroundColor="{Binding Id, Converter={StaticResource TopThreeColorConverter}}"
+                                CornerRadius="10"
+                                IsVisible="{Binding Id, Converter={StaticResource TopThreeConverter}}"
+                                Opacity="0.5" />
+
+                            <Image
+                                Grid.Column="0"
+                                Aspect="AspectFill"
+                                HeightRequest="50"
+                                Source="{Binding ImageFullPath}"
+                                VerticalOptions="Center"
+                                WidthRequest="50" />
+
+                            <Label
+                                Grid.Column="1"
+                                FontSize="Medium"
+                                HorizontalOptions="Center"
+                                Text="{Binding Name}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Grid.Column="2"
+                                Margin="0,0,10,0"
+                                FontSize="Medium"
+                                HorizontalOptions="Start"
+                                Text="{Binding Score}"
+                                VerticalOptions="Center" />
+
+
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

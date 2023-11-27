@@ -1,32 +1,64 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="TicTacToe.Pages.SingIn.SingInView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="SingInView">
-    <Grid>
+    Title="SingInView"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid Padding="20" RowSpacing="10">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <VerticalStackLayout Grid.Row="1">
-            <Entry Placeholder="Email" Text="{Binding User.Email, Mode=TwoWay}" />
+
+
+        <Image
+            Grid.Row="0"
+            Margin="0,20,0,20"
+            HorizontalOptions="Center"
+            MaximumHeightRequest="200"
+            Source="logo.png"
+            VerticalOptions="End" />
+
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            HorizontalOptions="Fill"
+            Spacing="15"
+            VerticalOptions="Start">
+            <Entry
+                Keyboard="Email"
+                Placeholder="Email"
+                Text="{Binding User.Email, Mode=TwoWay}" />
             <Entry
                 IsPassword="True"
                 Placeholder="Password"
                 Text="{Binding User.Password, Mode=TwoWay}" />
-
         </VerticalStackLayout>
+
+
         <Button
             Grid.Row="2"
+            Margin="5"
+            BackgroundColor="#4CAF50"
             Clicked="LoginClicked"
-            Text="Login" />
+            CornerRadius="10"
+            Text="Login"
+            TextColor="White" />
+
+
         <Button
             Grid.Row="3"
+            Margin="5"
+            BackgroundColor="#2196F3"
             Clicked="RegisterClicked"
-            Text="Register" />
+            CornerRadius="10"
+            Text="Register"
+            TextColor="White" />
     </Grid>
 </ContentPage>

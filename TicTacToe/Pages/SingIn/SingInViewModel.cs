@@ -23,9 +23,9 @@ namespace TicTacToe.Pages.SingIn
         public async Task<bool> Login() 
         {
             var user = (await userRepository.GetItems(x => x.Email.Equals(User.Email)))?.FirstOrDefault();
-            if (user!= null) 
+            if (user!= null)
             {
-                if (hashService.Verify(User.Password, user.Password)) 
+                if (hashService.Verify(User.Password, user.Password))
                 {
                     userSession.CurrentUser = user;
                     user.LastLogin = DateTime.Now.Ticks;
@@ -33,7 +33,7 @@ namespace TicTacToe.Pages.SingIn
                     return true;
                 }
             }
-            return false;
+            throw new Exception("Bad email or password!");
         }
 
     }

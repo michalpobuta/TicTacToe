@@ -1,5 +1,9 @@
+using CommunityToolkit.Maui.Views;
 using Microsoft.Extensions.DependencyInjection;
+using TicTacToe.Pages.MainMenu;
+using TicTacToe.Pages.SingIn;
 using TicTacToe.Pages.TicTacToe;
+using TicTacToe.Popups;
 
 namespace TicTacToe.Pages.Register;
 
@@ -16,12 +20,19 @@ public partial class RegisterView : ContentPage
 
     private async void RegisterClicked(object sender, EventArgs e)
     {
-        if (await(BindingContext as RegisterViewModel).Register())
-            await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(TicTacToeView)) as TicTacToeView);
+        try
+        {
+            if (await (BindingContext as RegisterViewModel).Register())
+                await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(MainMenuView)) as MainMenuView);
+        }
+        catch (Exception ex) 
+        {
+            await this.ShowPopupAsync(new InfoPopup() { InfoText= ex.Message });
+        }
     }
     private async void BackClicked(object sender, EventArgs e)
     {
-        await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(RegisterView)) as RegisterView);
+        await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(SingInView)) as SingInView);
 
     }
 }

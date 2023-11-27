@@ -11,7 +11,7 @@ namespace TicTacToe.Database.Factories
     {
         public static User CreateUser(string name,string email,string password) 
         {
-            return new User() { Id = 0, CreationDate = DateTime.Now.Ticks, LastLogin = DateTime.Now.Ticks, UserGames = new List<Game>(), Email =email, Name=name, Password=password };   
+            return new User() { Id = 0, CreationDate = DateTime.Now.Ticks, LastLogin = DateTime.Now.Ticks, UserGames = new List<Game>(), Email =email, Name=name, Password=password, PhotoPath = "dotnet_bot.png" };   
         }
     }
 }

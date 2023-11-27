@@ -19,7 +19,7 @@ namespace TicTacToe.Pages.TicTacToe
         public TicTacToeViewModel(IBaseRepository<Game> gameRepository, UserSession userSession, IBaseRepository<GameMove> gameMoveRepository)
         {
             this.gameRepository = gameRepository;
-            this.gameRepository = gameRepository;
+            this.gameMoveRepository = gameMoveRepository;
             this.userSession = userSession;
         }
 
@@ -29,8 +29,8 @@ namespace TicTacToe.Pages.TicTacToe
         }
         public async Task SaveGame(int player,BotLvL botLvL) 
         {
-            //var game = GameFactory.CreateGame(userSession.CurrentUser, botLvL, null, true, player ==1);
-            //await gameMoveRepository.SaveItems(Moves.Select(x => GameMoveFactory.CreateGameMove(game, x.Player ==1, x.MoveNumber, x.MoveX, x.MoveY)).ToList());
+            var game = GameFactory.CreateGame(userSession.CurrentUser, botLvL, null, player != 0, player ==1);
+            await gameMoveRepository.SaveItems(Moves.Select(x => GameMoveFactory.CreateGameMove(game, x.Player ==1, x.MoveNumber, x.MoveX, x.MoveY)).ToList());
         }
         public void Reset() 
         {

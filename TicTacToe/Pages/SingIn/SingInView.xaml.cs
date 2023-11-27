@@ -1,5 +1,8 @@
+using CommunityToolkit.Maui.Views;
+using TicTacToe.Pages.MainMenu;
 using TicTacToe.Pages.Register;
 using TicTacToe.Pages.TicTacToe;
+using TicTacToe.Popups;
 
 namespace TicTacToe.Pages.SingIn;
 
@@ -16,8 +19,15 @@ public partial class SingInView : ContentPage
 
     private async void LoginClicked(object sender, EventArgs e)
     {
-        if (await (BindingContext as SingInViewModel).Login())
-            await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(TicTacToeView)) as TicTacToeView);
+        try
+        {
+            if (await (BindingContext as SingInViewModel).Login())
+                await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(MainMenuView)) as MainMenuView);
+        }
+        catch (Exception ex) 
+        {
+            await this.ShowPopupAsync(new InfoPopup() { InfoText= ex.Message });
+        }
     }
     private async void RegisterClicked(object sender, EventArgs e)
     {

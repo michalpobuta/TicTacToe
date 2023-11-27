@@ -11,6 +11,7 @@ namespace TicTacToe.TicTacToeGame
     {
         private Array2D board = new Array2D(3, 3);
         private int player = 1;
+        private Tuple<int, WinType> winInfo;
 
         public bool MakeMove(int row, int col)
         {
@@ -27,22 +28,31 @@ namespace TicTacToe.TicTacToeGame
         }
         public int CheckResult()
         {
-            // Sprawdzenie wierszy i kolumn
             for (int i = 0; i < 3; i++)
             {
-                if (board[i, 0] != 0 && board[i, 0] == board[i, 1] && board[i, 0] == board[i, 2])
-                    return board[i, 0];  // Zwycięstwo
+                if (board[i, 0] != 0 && board[i, 0] == board[i, 1] && board[i, 0] == board[i, 2]) 
+                {
+                    winInfo = new(i, WinType.Row);
+                    return board[i, 0];
+                }
                 if (board[0, i] != 0 && board[0, i] == board[1, i] && board[0, i] == board[2, i])
-                    return board[0, i];  // Zwycięstwo
+                {
+                    winInfo = new(i, WinType.Column);
+                    return board[0, i]; 
+                } 
             }
 
-            // Sprawdzenie przekątnych
             if (board[0, 0] != 0 && board[0, 0] == board[1, 1] && board[0, 0] == board[2, 2])
-                return board[0, 0];  // Zwycięstwo
+            {
+                winInfo = new(1, WinType.Diagonal);
+                return board[0, 0]; 
+            }
             if (board[0, 2] != 0 && board[0, 2] == board[1, 1] && board[0, 2] == board[2, 0])
-                return board[0, 2];  // Zwycięstwo
+            {
+                winInfo = new(0, WinType.Diagonal);
+                return board[0, 2]; 
+            }
 
-            // Sprawdzenie, czy wszystkie pola są zapełnione (remis)
             bool isboardFull = true;
             for (int row = 0; row < 3; row++)
             {
@@ -57,27 +67,31 @@ namespace TicTacToe.TicTacToeGame
             }
 
             if (isboardFull)
-                return 0;  // Remis
-
-            return -1;  // Gra trwa
+                return 0;
+            return -1;
         }
 
         public int GetPiece(int row, int col)
         {
             return board[row, col];
         }
+        public Tuple<int, WinType> GetWinInfo() 
+        {
+            return winInfo;
+        }
 
         public void Reset()
         {
             board = new Array2D(3, 3);
             player = 1;
+            winInfo = null;
         }
         public Point GetLastMove() => board.LastElement;
 
-        public bool MakeMoveForBot(IBot bot)
+        public (int row, int col)? MakeMoveForBot(Bot.Bot bot)
         {
             var res = bot.MakeMove(board);
-            return MakeMove(res.row,res.col);
+            return MakeMove(res.row,res.col) ? res : null;
         }
     }
 }

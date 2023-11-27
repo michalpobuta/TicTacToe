@@ -1,25 +1,45 @@
-﻿namespace TicTacToe
+﻿
+using TicTacToe.Pages.SingIn;
+
+namespace TicTacToe
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
-        public MainPage()
+        private readonly IServiceProvider serviceProvider;
+        View imageView;
+        readonly MainPageViewModel _mainPageViewModel;
+        public MainPage(IServiceProvider serviceProvider, MainPageViewModel _mainPageViewModel)
         {
+            this._mainPageViewModel = _mainPageViewModel;
+            this.serviceProvider = serviceProvider;
             InitializeComponent();
         }
-
-        private void OnCounterClicked(object sender, EventArgs e)
+        public void ChangePage() 
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await App.Current.MainPage.Navigation.PushAsync(serviceProvider.GetService(typeof(SingInView)) as SingInView);
+            });
         }
+        private void ImageOnHandlerChanged(object sender, EventArgs e)
+        {
+            imageView = sender as View;
+        }
+        private void GridOnHandlerChanged(object sender, EventArgs e)
+        {
+            _mainPageViewModel.TransitionFadeTo(sender as View, FadeToCompleted);
+        }
+
+        void FadeToCompleted()
+        {
+            _mainPageViewModel.TransitionTranslateToTop(imageView, ToTopCompleted);
+        }
+        void ToTopCompleted()
+        {
+            imageView.IsVisible = false;
+            ChangePage();
+        }
+
     }
 
 }

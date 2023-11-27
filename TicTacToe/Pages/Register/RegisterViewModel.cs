@@ -8,6 +8,7 @@ using TicTacToe.Common;
 using TicTacToe.Database.Factories;
 using TicTacToe.Database.Model;
 using TicTacToe.Database.Repositories;
+using TicTacToe.Extensions;
 
 namespace TicTacToe.Pages.Register
 {
@@ -28,7 +29,7 @@ namespace TicTacToe.Pages.Register
 
         public async Task<bool> Register() 
         {
-            if (user.IsUserValid()) 
+            if (user.IsUserValid())
             {
                 if (!(await userRepository.GetItems(x => x.Email.Equals(user.Email))).Any())
                 {
@@ -36,8 +37,22 @@ namespace TicTacToe.Pages.Register
                     userSession.CurrentUser = newUser;
                     return true;
                 }
+                else
+                    throw new Exception("User already exist!");
             }
-            return false;
+            else
+                throw new Exception(GetErrorMessage());
         }
+
+        private string GetErrorMessage() 
+        {
+            if (String.IsNullOrEmpty(User?.Name)) return "Name cannot be empty!";
+            if (!User?.Email?.IsEmailValid()??false) return "Email is not Valid!";
+            if (String.IsNullOrEmpty(User?.Password) || !(User?.Password?.Equals(User?.Password2)??false)) return "Incorrect password!";
+            else return "Unknown error!";
+        }
+
+
+
     }
 }

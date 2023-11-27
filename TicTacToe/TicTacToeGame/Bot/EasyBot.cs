@@ -6,30 +6,13 @@ using System.Threading.Tasks;
 
 namespace TicTacToe.TicTacToeGame.Bot
 {
-    public class EasyBot : IBot
+    public class EasyBot : Bot
     {
-        private Random random = new Random();
+        public override BotLvL GetBotLvL() => BotLvL.Easy;
 
-        public (int row, int col) MakeMove(Array2D board)
+        public override (int row, int col) MakeMove(Array2D board)
         {
-            var emptyCells = new List<(int row, int col)>();
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if (board[i, j] == 0)
-                    {
-                        emptyCells.Add((i, j));
-                    }
-                }
-            }
-
-            if (emptyCells.Count == 0)
-            {
-                throw new InvalidOperationException("No more moves available.");
-            }
-            int index = random.Next(emptyCells.Count);
-            return emptyCells[index];
+            return GetRandomMove(board);
         }
     }
 }

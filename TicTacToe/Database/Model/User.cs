@@ -14,6 +14,11 @@ namespace TicTacToe.Database.Model
         public string Password { get; set; }
         public long CreationDate { get; set; }
         public long LastLogin {  get; set; }
+        public string PhotoPath { get; set; }
         public ICollection<Game> UserGames { get; set; }
+
+        public string PhotoFullPath => PhotoPath != null ? Path.Combine(FileSystem.Current.AppDataDirectory, PhotoPath) : "";
+
+
     }
 }

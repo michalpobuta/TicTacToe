@@ -3,29 +3,73 @@
     x:Class="TicTacToe.Pages.Register.RegisterView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="RegisterView">
-    <Grid>
+    Title="RegisterView"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid Padding="20" RowSpacing="10">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
         </Grid.RowDefinitions>
-        <VerticalStackLayout Grid.Row="1">
-            <Label Text="Email" />
-            <Entry Text="{Binding User.Email}" />
-            <Label Text="Name" />
-            <Entry Text="{Binding User.Name}" />
-            <Label Text="Password" />
-            <Entry Text="{Binding User.Password}" />
-            <Label Text="Repeat Password" />
-            <Entry Text="{Binding User.Password2}" />
+
+
+        <Image
+            Grid.Row="0"
+            Margin="0,20,0,20"
+            HorizontalOptions="Center"
+            MaximumHeightRequest="200"
+            Source="logo.png"
+            VerticalOptions="End" />
+
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            HorizontalOptions="Fill"
+            Spacing="15"
+            VerticalOptions="Start">
+
+            <Entry
+                Keyboard="Email"
+                Placeholder="Email"
+                Text="{Binding User.Email}" />
+            <Entry Placeholder="Name" Text="{Binding User.Name}" />
+            <Entry
+                IsPassword="True"
+                Placeholder="Password"
+                Text="{Binding User.Password}" />
+            <Entry
+                IsPassword="True"
+                Placeholder="Repeat Password"
+                Text="{Binding User.Password2}" />
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="3">
-            <Button Clicked="RegisterClicked" Text="Register" />
-            <Button Clicked="BackClicked" Text="Back" />
+
+
+        <VerticalStackLayout
+            Grid.Row="3"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Start">
+            <Button
+                Margin="5"
+                BackgroundColor="#4CAF50"
+                Clicked="RegisterClicked"
+                CornerRadius="10"
+                Text="Register"
+                TextColor="White" />
+            <Button
+                Margin="5"
+                BackgroundColor="#2196F3"
+                Clicked="BackClicked"
+                CornerRadius="10"
+                Text="Back"
+                TextColor="White" />
         </VerticalStackLayout>
+
 
     </Grid>
 </ContentPage>

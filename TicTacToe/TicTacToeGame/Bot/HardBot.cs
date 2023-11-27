@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace TicTacToe.TicTacToeGame.Bot
 {
-    public class HardBot : IBot
+    public class HardBot : Bot
     {
-        public (int row, int col) MakeMove(Array2D board)
+        public override BotLvL GetBotLvL() => BotLvL.Hard;
+        public override (int row, int col) MakeMove(Array2D board)
         {
-            throw new NotImplementedException();
+            var winMove = FindWinningMove(board, 2);
+            if (winMove != null) return winMove.Value;
+
+            var blockMove = FindWinningMove(board, 1);
+            if (blockMove != null) return blockMove.Value;
+
+            return GetRandomMove(board);
         }
     }
 }

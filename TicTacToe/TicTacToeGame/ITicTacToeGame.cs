@@ -6,9 +6,10 @@ namespace TicTacToe.TicTacToeGame
     {
         int GetPiece(int row, int col);
         bool MakeMove(int row, int col);
-        bool MakeMoveForBot(IBot bot);
+        (int row, int col)? MakeMoveForBot(Bot.Bot bot);
         public void ChangePlayer();
         public int CheckResult();
+        public Tuple<int, WinType> GetWinInfo();
         public Point GetLastMove();
         void Reset();
     }

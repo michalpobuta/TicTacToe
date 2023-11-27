@@ -15,9 +15,11 @@ namespace TicTacToe
             Services = serviceProvider;
             InitializeDatabase(serviceProvider).Wait();
 
-
-            MainPage = new NavigationPage((SingInView)serviceProvider.GetService(typeof(SingInView)));
+            var mainPage = (MainPage)serviceProvider.GetService(typeof(MainPage));
+            MainPage = new NavigationPage(mainPage);
+            
         }
+        
 
         private async Task InitializeDatabase(IServiceProvider serviceProvider)
         {

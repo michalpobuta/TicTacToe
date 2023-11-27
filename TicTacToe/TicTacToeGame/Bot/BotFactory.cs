@@ -8,7 +8,7 @@ namespace TicTacToe.TicTacToeGame.Bot
 {
     public class BotFactory
     {
-        public IBot CreateBot(BotLvL lvl) => lvl switch
+        public Bot CreateBot(BotLvL lvl) => lvl switch
         {
             BotLvL.Easy => new EasyBot(),
             BotLvL.Medium => new MediumBot(),

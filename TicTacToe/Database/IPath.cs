@@ -9,7 +9,7 @@ namespace TicTacToe.Database
     public interface IPath
     {
 
-        protected const string APP_DB_FILENAME = "database2.db";
+        protected const string APP_DB_FILENAME = "database4.db";
         protected const string APP_NAME = "TicTacToe";
         protected const string APP_DB_FOLDER = "Databases";
 

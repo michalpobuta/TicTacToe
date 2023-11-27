@@ -1,30 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="TicTacToe.Pages.TicTacToe.TicTacToeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="TicTacToeView">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="0.5*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="0.5*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="0.1*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.1*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.1*" />
+    xmlns:cv="clr-namespace:TicTacToe.ContentViews"
+    Title="TicTacToeView"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="False">
 
-        </Grid.ColumnDefinitions>
+    <Grid Padding="20" RowSpacing="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <cv:MenuContentView Grid.Row="0" />
         <GraphicsView
             x:Name="gameGrid"
-            Grid.Row="2"
-            Grid.Column="1"
+            Grid.Row="1"
             HeightRequest="300"
             HorizontalOptions="Center"
             VerticalOptions="Center"
@@ -33,42 +27,89 @@
                 <TapGestureRecognizer Tapped="Tapped" />
             </GraphicsView.GestureRecognizers>
         </GraphicsView>
+
+
         <ListView
-            Grid.Row="4"
-            Grid.Column="1"
-            ItemsSource="{Binding Moves}">
+            Grid.Row="2"
+            Margin="5"
+            BackgroundColor="Transparent"
+            HorizontalOptions="Fill"
+            IsEnabled="False"
+            ItemsSource="{Binding Moves}"
+            SeparatorVisibility="None"
+            VerticalOptions="Fill">
+            <ListView.Header>
+                <Grid
+                    Margin="5"
+                    Padding="10"
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout Grid.Column="0">
+
+                        <Label FontAttributes="Bold" Text="Move NO." />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1">
+
+                        <Label FontAttributes="Bold" Text="Player" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="2">
+
+                        <Label FontAttributes="Bold" Text="X" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="3">
+
+                        <Label FontAttributes="Bold" Text="Y" />
+                    </VerticalStackLayout>
+                </Grid>
+
+
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <HorizontalStackLayout>
-                            <VerticalStackLayout>
-                                <Label FontAttributes="Bold" Text="Move NO." />
-                                <Label Text="{Binding MoveNumber}" />
-                            </VerticalStackLayout>
-                            <BoxView Margin="10" />
-                            <VerticalStackLayout>
-                                <Label FontAttributes="Bold" Text="Player" />
-                                <Label Text="{Binding PlayerName}" />
-                            </VerticalStackLayout>
-                            <BoxView Margin="10" />
-                            <VerticalStackLayout>
-                                <Label FontAttributes="Bold" Text="X" />
-                                <Label Text="{Binding MoveX}" />
-                            </VerticalStackLayout>
-                            <BoxView Margin="10" />
-                            <VerticalStackLayout>
-                                <Label FontAttributes="Bold" Text="Y" />
-                                <Label Text="{Binding MoveY}" />
-                            </VerticalStackLayout>
-                        </HorizontalStackLayout>
+                        <Frame
+                            Margin="5"
+                            Padding="9"
+                            BackgroundColor="#F5F5F5"
+                            CornerRadius="10"
+                            HasShadow="False">
+                            <Grid ColumnSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding MoveNumber}" />
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="{Binding PlayerName}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="2">
+                                    <Label Text="{Binding MoveX}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="3">
+                                    <Label Text="{Binding MoveY}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
         <Button
-            Grid.Row="6"
-            Grid.Column="1"
+            Grid.Row="3"
+            Margin="5"
+            BackgroundColor="#F44336"
             Clicked="Button_Clicked"
-            Text="Reset" />
+            CornerRadius="10"
+            Text="Reset"
+            TextColor="White" />
     </Grid>
 </ContentPage>
